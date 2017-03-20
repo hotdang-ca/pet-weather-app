@@ -12,10 +12,13 @@
     right: 0px;
     width: 100vw;
     height: 64px;
-    background-color: $color-primaryBlue;
+    background-color: $color-primaryBlueDarker;
+    border-bottom: 2px solid $color-white;
 
     display: flex;
     align-items: center;
     flex-direction: column;
+
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.24), 0 0 4px 0 rgba(0, 0, 0, 0.12);
   }
 }

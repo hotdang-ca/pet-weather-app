@@ -1,0 +1,25 @@
+.pets-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+
+  overflow-x: scroll;
+  overflow-y: hidden;
+  background-color: $color-primaryBlueDarker;
+
+  border: 2px solid $color-white;
+  border-radius: 9px;
+
+  height: 60%;
+  max-height: 320px;
+  width: 100%;
+  max-width: 700px;
+}
+
+#PetDetailsCard {
+  min-width: 80%;
+  padding: 16px;
+  margin: 12px;
+  display: inline;
+}
