@@ -1,7 +1,10 @@
 // Colors
 $color-primaryGreen: #bce831; // primary green
-$color-primaryBlue: #0198A9; // primary blue
+$color-primaryBlue: #0198a9; // primary blue
+$color-primaryBlueDarker: #006576; // darker blue
+
 $color-primaryRust: #f05340; // primary red
+$color-primaryDark: #63666a; // primary dark
 
 $color-salmon: #ffaeab; // Salmon
 $color-almond: #fceec9; // BlanchedAlmond
@@ -50,7 +53,7 @@ $logo-width-large: 150px;
 $navbar-height: 56px;
 $navbar-padding: 15px;
 
-$maxWidth: 300px;
+$maxWidth: 400px;
 $containerPreferredWidth: 80%;
 
 $bezier-bloop: cubic-bezier(.67, 1.87, .61, .82);
