@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 import { PrimaryButton, PetDetailsCard } from '../common';
+const APIBASE = '//pet-shelter-api.herokuapp.com';
 
 class WelcomeScreen extends Component {
   constructor(props) {
@@ -37,7 +38,7 @@ class WelcomeScreen extends Component {
       isLoading: true
     });
 
-    axios.get('//pet-shelter-api.herokuapp.com/pets')
+    axios.get(`${APIBASE}/pets`)
     .then((response) => {
       this.setState({
         isLoading: false,

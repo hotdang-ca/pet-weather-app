@@ -3,6 +3,7 @@ import axios from 'axios';
 
 // TODO: store somewhere secret
 const APIKEY = '82dd8ad9b17dd32e59ea45bab4892856';
+const APIBASE = '//pet-shelter-api.herokuapp.com';
 
 class PetDetailsScreen extends Component {
   constructor(props) {
@@ -44,7 +45,7 @@ class PetDetailsScreen extends Component {
     const { match } = this.props;
     const { petId } = match.params;
 
-    axios.get(`//pet-shelter-api.herokuapp.com/pets/${petId}`)
+    axios.get(`${APIBASE}/pets/${petId}`)
     .then((response) => {
       this.setState({
         pet: response.data
