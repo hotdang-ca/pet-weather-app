@@ -7,7 +7,7 @@
 /coverage
 
 # production
-/build
+# /build -- normally we would exclude this, but there's a version conflict between the CreateReactApp BuildPack and the current version of CreateReactApp. So... we'll serve the build folder, rather than redeploy on the server.
 
 # misc
 .DS_Store
