@@ -1,0 +1,74 @@
+// Colors
+$color-primaryGreen: #bce831; // primary green
+$color-primaryBlue: #0198A9; // primary blue
+$color-primaryRust: #f05340; // primary red
+
+$color-salmon: #ffaeab; // Salmon
+$color-almond: #fceec9; // BlanchedAlmond
+$color-teagreen: #4cccbc; // TeaGreen
+$color-lightblue: #7de0e6; // Light blue;
+$color-pastelblue: #a4c2d6; // PastelBlue
+$color-deepblue: #30265e; // Deep blue headers
+$color-blue: #162bf4; // Bright blue CTA buttons
+$color-purple: #241651; // Dark purple
+$color-mauve: #c0b9dd; // Mauve
+$color-palegreen: #b2fdb9; // Pale green
+
+$color-black: #000;
+$color-darkergray: #363636;
+$color-darkgray: #4a4a4a;
+$color-gray: #979797;
+$color-mediumgray: #bdbdbd;
+$color-lightgray: #ededed;
+$color-white: #fff;
+
+$color-red: #ff0030;
+$color-green: #26cc00;
+
+$color-points-positive: $color-green;
+$color-points-negative: $color-red;
+
+$color-input-error: $color-red;
+$color-input-focus: $color-blue;
+
+// Font sizes
+$font-size-base: 14px;
+
+// Font weights
+$font-weight-ultralight: 100;
+$font-weight-thin: 200;
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
+$font-weight-ultrabold: 900;
+
+// Other
+$logo-width: 100px;
+$logo-width-large: 150px;
+
+$navbar-height: 56px;
+$navbar-padding: 15px;
+
+$maxWidth: 300px;
+$containerPreferredWidth: 80%;
+
+$bezier-bloop: cubic-bezier(.67, 1.87, .61, .82);
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1, 1);
+    }
+    50% {
+        transform: scale(1.2, 1.2);
+    }
+    100% {
+        transform: scale(1, 1);
+    }
+}

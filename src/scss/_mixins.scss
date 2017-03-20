@@ -1,0 +1,47 @@
+* {
+  font-family: Lato, Helvetica;
+  color: $color-white;
+}
+
+.hidden {
+  display: none;
+}
+
+.infinite-pulse {
+  animation-name: pulse;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+.how-it-works {
+  color: $color-mediumgray;
+}
+
+.flush-bottom {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  width: 100vw;
+  max-height: 100vh;
+  height: 50vh;
+  // border: 1px solid $color-white;
+
+  .flush-bottom-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+  }
+}
+
+#distanceText {
+  padding-top: 4px;
+  padding-bottom: 4px;
+  text-align: center;
+  width: 100%;
+  background-color: rgba(0,0,0,0.5);
+  color: $color-white;
+  font-family: Lato;
+  font-weight: 300;
+  vertical-align: middle;
+}

@@ -1,0 +1,27 @@
+#WelcomeScreen {
+  font-weight: 300;
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  h1, h2, h3 {
+    font-weight: 300;
+  }
+
+  strong {
+    font-weight: 900;
+  }
+
+  .container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    width: $containerPreferredWidth;
+    max-width: $maxWidth;
+
+    text-align: center;
+    color: $color-white;
+  }
+}

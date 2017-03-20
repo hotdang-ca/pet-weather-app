@@ -1,9 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
-import './index.css';
+import { BrowserRouter, Route } from 'react-router-dom';
+
+import AppWrapper from './AppWrapper';
+import { WelcomeScreen, PetDetailsScreen } from './components/screens';
+
+import './main.css';
+
+const Routes = () => (
+  <BrowserRouter>
+    <AppWrapper title={'Pet Weather'}>
+      <Route exact path="/" component={WelcomeScreen}/>
+      <Route exact path="/pets/:petId" component={PetDetailsScreen} />
+    </AppWrapper>
+  </BrowserRouter>
+);
 
 ReactDOM.render(
-  <App />,
-  document.getElementById('root')
+  React.createElement(Routes),
+  document.getElementById('root') // eslint-disable-line no-undef
 );
