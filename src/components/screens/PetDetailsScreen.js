@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // TODO: store somewhere secret
 const APIKEY = '82dd8ad9b17dd32e59ea45bab4892856';
-const APIBASE = '//pet-shelter-api.herokuapp.com';
+const APIBASE = '//pet-shelter-api-jperih.herokuapp.com';
 
 class PetDetailsScreen extends Component {
   constructor(props) {
@@ -73,12 +73,12 @@ class PetDetailsScreen extends Component {
   }
 
   render() {
-    const { name, typeId, breedId } = this.state.pet;
+    const { name, type, breed } = this.state.pet;
 
     return (
       <div id='PetDetailsScreen'>
         <div className='container'>
-          Hello Pet Details for { name } which is a { typeId } { breedId }
+          Hello Pet Details for { name } which is a { type } { breed }
           { this.renderNeedsUmbrella() }
         </div>
         <div className='attribution'>

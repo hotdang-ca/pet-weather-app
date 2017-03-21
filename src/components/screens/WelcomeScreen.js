@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 import { PrimaryButton, PetDetailsCard } from '../common';
-const APIBASE = '//pet-shelter-api.herokuapp.com';
+const APIBASE = '//pet-shelter-api-jperih.herokuapp.com';
 
 class WelcomeScreen extends Component {
   constructor(props) {

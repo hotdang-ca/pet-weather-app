@@ -10,10 +10,15 @@ var app = () => {
   console.log(path.join(__dirname, '/build/static'));
 
   app.use('/static', publicPath);
-  app.get('/', function (_, res) {
+  app.get('/', (_, res) => {
     res.sendFile(indexPath);
   });
-
+  app.get('/pets/:id', (_, res) => {
+    res.sendFile(indexPath);
+  });
+  app.get('/pets/', (_, res) => {
+    res.sendFile(indexPath);
+  });
   return app;
 };
 
