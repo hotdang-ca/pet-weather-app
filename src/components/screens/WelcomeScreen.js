@@ -55,7 +55,13 @@ class WelcomeScreen extends Component {
 
     return pets.map((pet, index) => {
       console.log(pet);
-      return (<PetDetailsCard key={index} pet={pet} onButtonClicked={this.handlePetClicked.bind(this, pet.id)} />);
+      return (
+        <PetDetailsCard
+          key={index}
+          pet={pet}
+          onButtonClicked={this.handlePetClicked.bind(this, pet.id)}
+        />
+      );
     });
   }
 

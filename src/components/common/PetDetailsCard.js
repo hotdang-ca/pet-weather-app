@@ -5,8 +5,8 @@ const PetDetailsCard = ({ pet, onButtonClicked }) => (
   <div id='PetDetailsCard'>
     <b>Name:</b> {pet.name}<br/>
     <b>Location: </b> {pet.location}<br/>
-    <b>Type: </b> {pet.Type.name}<br/>
-    <b>Breed: </b> {pet.Breed.name}<br/>
+    <b>Type: </b> {pet.type}<br/>
+    <b>Breed: </b> {pet.breed}<br/>
 
     <PrimaryButton
       title={`Does ${pet.name} need an umbrella?`}
