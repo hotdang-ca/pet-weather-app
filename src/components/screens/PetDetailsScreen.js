@@ -32,9 +32,11 @@ class PetDetailsScreen extends Component {
     const { latitude, longitude } = pet;
     console.log('pet: ', pet);
 
-    axios.get(`https://api.darksky.net/forecast/${APIKEY}/${longitude},${latitude}`)
+    axios.get(`/weather/${APIKEY}/${latitude},${longitude}`)
     .then((response) => {
-      console.log(response);
+      this.setState({
+        forecast: response.data
+      });
     })
     .catch((error) => {
       console.log(error);

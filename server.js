@@ -1,5 +1,6 @@
 var path = require('path');
 var express = require('express');
+var request = require('request');
 
 var app = () => {
   const app = express();
@@ -18,6 +19,14 @@ var app = () => {
   });
   app.get('/pets/', (_, res) => {
     res.sendFile(indexPath);
+  });
+
+  // proxy requests because CORS
+  app.get('/weather/:apiKey/:latitude,:longitude', (req, res) => {
+    const apiServerHost = 'https://api.darksky.net/forecast';
+    const url = apiServerHost + req.url.replace('weather/', '');
+    req.pipe(request(url)).pipe(res);
+    // res.send(url);
   });
   return app;
 };
