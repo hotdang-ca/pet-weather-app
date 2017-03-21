@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Helmet from 'react-helmet';
 
 import { PrimaryButton, PetDetailsCard } from '../common';
 const APIBASE = '//pet-shelter-api-jperih.herokuapp.com';
@@ -70,9 +71,24 @@ class WelcomeScreen extends Component {
 
     return (
       <div id='WelcomeScreen'>
+        <Helmet
+          title={`Pet Weather - Do your pets need an umbrella?`}
+        />
+
         <div className='container'>
           <h2>Does my pet need an umbrella?</h2>
           <div className='pets-list'>
+
+            <div className='pets-list-header'>
+              <div className='cell-row'>
+                <div className='cell'><strong>Name</strong></div>
+                <div className='cell'><strong>Location</strong></div>
+                <div className='cell'><strong>Type</strong></div>
+                <div className='cell'><strong>Breed</strong></div>
+                <div className='cell'><strong>Action</strong></div>
+              </div>
+            </div>
+
             { isLoading
               ? <em>Loading..</em>
               : this.renderPets()
