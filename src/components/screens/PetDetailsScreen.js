@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
+import Helmet from 'react-helmet';
 
 // TODO: store somewhere secret
 const APIKEY = '82dd8ad9b17dd32e59ea45bab4892856';
+const APIBASE = '//pet-shelter-api-jperih.herokuapp.com';
 
 class PetDetailsScreen extends Component {
   constructor(props) {
@@ -22,6 +25,7 @@ class PetDetailsScreen extends Component {
   }
 
   componentDidMount() {
+    scroll(0,0);
     this.refreshPetDetails((pet) => { this.refreshForecast(pet) });
   }
 
@@ -31,9 +35,11 @@ class PetDetailsScreen extends Component {
     const { latitude, longitude } = pet;
     console.log('pet: ', pet);
 
-    axios.get(`https://api.darksky.net/forecast/${APIKEY}/${longitude},${latitude}`)
+    axios.get(`/weather/${APIKEY}/${latitude},${longitude}`)
     .then((response) => {
-      console.log(response);
+      this.setState({
+        forecast: response.data
+      });
     })
     .catch((error) => {
       console.log(error);
@@ -44,7 +50,7 @@ class PetDetailsScreen extends Component {
     const { match } = this.props;
     const { petId } = match.params;
 
-    axios.get(`//pet-shelter-api.herokuapp.com/pets/${petId}`)
+    axios.get(`${APIBASE}/pets/${petId}`)
     .then((response) => {
       this.setState({
         pet: response.data
@@ -61,27 +67,71 @@ class PetDetailsScreen extends Component {
       return <span>Not sure yet</span>;
     }
 
+    const { pet } = this.state;
     const { currently } = this.state.forecast;
     const { precipProbability, precipType } = currently;
 
     if (precipProbability > 0 && precipType === 'rain') { // if there's a chance of rain, you need an umbrella
-      return <span>You need an umbrella</span>
+      return
+      (<div>
+        <h2>YES!</h2><p></p>It looks like { pet.name } is going to need one in { pet.location }.
+      </div>);
     } else {
-      return <span>You probably don't need an umbrella</span>
+      return (
+        <div>
+          <h2>NOPE!</h2><p>It looks like { pet.name } won't likely need one in { pet.location }.</p>
+        </div>
+      );
     }
   }
 
   render() {
-    const { name, typeId, breedId } = this.state.pet;
+    const { name, type, breed } = this.state.pet;
+
+    let iconString = '';
+    if (type !== undefined) {
+      switch (type.toLowerCase()) {
+        case 'dog':
+          iconString = '🐶';
+          break;
+        case 'cat':
+          iconString = '🐱';
+          break;
+        case 'bird':
+          iconString = '🐤';
+          break;
+        case 'rodent':
+          iconString = '🐹';
+          break;
+        default:
+          iconString = '';
+      }
+    }
 
     return (
       <div id='PetDetailsScreen'>
+        <Helmet
+          title={`Does ${name} the ${breed} need an umbrella?`}
+        />
+
         <div className='container'>
-          Hello Pet Details for { name } which is a { typeId } { breedId }
-          { this.renderNeedsUmbrella() }
-        </div>
-        <div className='attribution'>
-          <a href="https://darksky.net/poweredby/">Powered By DarkSky <small>(Formally Forecast.io)</small></a>
+          <div className='bi-fold'>
+            <div className='left'>
+              <span className='emojiIcon' style={{ fontSize: '216px' }}>{iconString}</span>
+            </div>
+            <div className='right'>
+              { this.renderNeedsUmbrella() }
+              <Link to='/'>Lookup a different pet</Link>
+            </div>
+          </div>
+
+          <div className='attribution'>
+            <small>
+              Based on <code>precipProbability > 0 &amp;&amp; precipType === 'rain'</code><br/>
+              <a href="https://darksky.net/poweredby/">Powered By DarkSky</a> (Formally Forecast.io)
+            </small>
+          </div>
+          
         </div>
       </div>
     );

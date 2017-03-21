@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Helmet from 'react-helmet';
 
 import { PrimaryButton, PetDetailsCard } from '../common';
+const APIBASE = '//pet-shelter-api-jperih.herokuapp.com';
 
 class WelcomeScreen extends Component {
   constructor(props) {
@@ -37,7 +39,7 @@ class WelcomeScreen extends Component {
       isLoading: true
     });
 
-    axios.get('//pet-shelter-api.herokuapp.com/pets')
+    axios.get(`${APIBASE}/pets`)
     .then((response) => {
       this.setState({
         isLoading: false,
@@ -54,7 +56,13 @@ class WelcomeScreen extends Component {
 
     return pets.map((pet, index) => {
       console.log(pet);
-      return (<PetDetailsCard key={index} pet={pet} onButtonClicked={this.handlePetClicked.bind(this, pet.id)} />);
+      return (
+        <PetDetailsCard
+          key={index}
+          pet={pet}
+          onButtonClicked={this.handlePetClicked.bind(this, pet.id)}
+        />
+      );
     });
   }
 
@@ -63,9 +71,24 @@ class WelcomeScreen extends Component {
 
     return (
       <div id='WelcomeScreen'>
+        <Helmet
+          title={`Pet Weather - Do your pets need an umbrella?`}
+        />
+
         <div className='container'>
           <h2>Does my pet need an umbrella?</h2>
           <div className='pets-list'>
+
+            <div className='pets-list-header'>
+              <div className='cell-row'>
+                <div className='cell'><strong>Name</strong></div>
+                <div className='cell'><strong>Location</strong></div>
+                <div className='cell'><strong>Type</strong></div>
+                <div className='cell'><strong>Breed</strong></div>
+                <div className='cell'><strong>Action</strong></div>
+              </div>
+            </div>
+
             { isLoading
               ? <em>Loading..</em>
               : this.renderPets()
