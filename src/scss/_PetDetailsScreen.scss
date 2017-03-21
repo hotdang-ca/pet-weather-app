@@ -1,13 +1,18 @@
 #PetDetailsScreen {
-  .bi-fold {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-  }
+  align-items: initial;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
 
   .attribution {
     padding-right: 64px;
     padding-left: 64px;
   }
   
+  .bi-fold {
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+  }
 }

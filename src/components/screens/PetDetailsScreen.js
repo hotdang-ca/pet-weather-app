@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Helmet from 'react-helmet';
 
+import { Footer } from '../common';
+
 // TODO: store somewhere secret
 const APIKEY = '82dd8ad9b17dd32e59ea45bab4892856';
 const APIBASE = '//pet-shelter-api-jperih.herokuapp.com';
@@ -131,8 +133,10 @@ class PetDetailsScreen extends Component {
               <a href="https://darksky.net/poweredby/">Powered By DarkSky</a> (Formally Forecast.io)
             </small>
           </div>
-          
+
         </div>
+
+        <Footer />
       </div>
     );
   }
