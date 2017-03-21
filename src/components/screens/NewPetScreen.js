@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Helmet from 'react-helmet';
 
-import { Footer } from '../common';
+import { PrimaryButton, Footer } from '../common';
 const APIBASE = '//pet-shelter-api-jperih.herokuapp.com';
 
 class NewPetScreen extends Component {
@@ -22,6 +22,20 @@ class NewPetScreen extends Component {
 
   componentDidMount() {
     scroll(0,0);
+  }
+
+  onFieldChanged(e) {
+    switch (e.target.name) {
+      case 'name':
+        this.setState({
+          name: e.target.value
+        });
+        break;
+
+      default:
+        console.log('some other field.');
+    }
+    
   }
 
   render() {
@@ -125,11 +139,9 @@ class NewPetScreen extends Component {
             <PrimaryButton
               additionalStyles={{ marginTop: '0px', marginLeft: '0px', marginRight: '0px' }}
               title='Add my pet!'
-              disabled={this.state.isLoading}
-              onClick={this.handleContinueClicked.bind(this)}
             />
           </div>
-            
+
         </div>
       </div>
     );

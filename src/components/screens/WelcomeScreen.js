@@ -27,11 +27,10 @@ class WelcomeScreen extends Component {
 
   handleTrackNewPetClicked(event) {
     event.preventDefault();
-    console.log("new pet");
+    this.context.router.history.push(`/pets/new`);
   }
 
   handlePetClicked(id, component) {
-    console.log('details for pet', id);
     this.context.router.history.push(`/pets/${id}`);
   }
 
