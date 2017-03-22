@@ -32,8 +32,6 @@ class PetDetailsScreen extends Component {
   }
 
   refreshForecast(pet) {
-    console.log('only occurs when we\'ve refreshed our pet.');
-    // const { pet } = this.state;
     const { latitude, longitude } = pet;
     console.log('pet: ', pet);
 
@@ -66,29 +64,34 @@ class PetDetailsScreen extends Component {
 
   renderNeedsUmbrella() {
     if (!this.state.forecast) {
-      return <span>Not sure yet</span>;
+      return <p>Not sure yet. Perhaps the location is wrong?</p>;
     }
 
     const { pet } = this.state;
     const { currently } = this.state.forecast;
     const { precipProbability, precipType } = currently;
 
+    console.log(precipType, precipProbability);
+
     if (precipProbability > 0 && precipType === 'rain') { // if there's a chance of rain, you need an umbrella
-      return
-      (<div>
-        <h2>YES!</h2><p></p>It looks like { pet.name } is going to need one in { pet.location }.
-      </div>);
+    console.log('chance of rain!');
+
+      return(
+        <div>
+          <h2 style={{ fontSize: '86px' }}>YES!</h2><p>It looks like { pet.name } is going to need one in { pet.location }.</p>
+        </div>
+      );
     } else {
       return (
         <div>
-          <h2>NOPE!</h2><p>It looks like { pet.name } won't likely need one in { pet.location }.</p>
+          <h2 style={{ fontSize: '86px' }}>NOPE!</h2><p>It looks like { pet.name } won't likely need one in { pet.location }.</p>
         </div>
       );
     }
   }
 
   render() {
-    const { name, type, breed } = this.state.pet;
+    const { name, type, breed, latitude, longitude } = this.state.pet;
 
     let iconString = '';
     if (type !== undefined) {
@@ -110,6 +113,9 @@ class PetDetailsScreen extends Component {
       }
     }
 
+    let staticImageUrl = 'https://maps.googleapis.com/maps/api/staticmap?autoscale=2&size=300x300&maptype=roadmap&key=AIzaSyCZbrMDPUDaeqtXCb1CHrbzrot9zxKyXH8&format=png&visual_refresh=true&zoom=14';
+    staticImageUrl += `&markers=size:mid%7Ccolor:0xff0000%7Clabel:%7C${latitude},${longitude}`;
+
     return (
       <div id='PetDetailsScreen'>
         <Helmet
@@ -119,7 +125,8 @@ class PetDetailsScreen extends Component {
         <div className='container'>
           <div className='bi-fold'>
             <div className='left'>
-              <span className='emojiIcon' style={{ fontSize: '216px' }}>{iconString}</span>
+              <span className='emojiIcon' style={{ fontSize: '216px' }}>{iconString}</span><br/>
+              <img src={staticImageUrl} height='128' width='128' />
             </div>
             <div className='right'>
               { this.renderNeedsUmbrella() }

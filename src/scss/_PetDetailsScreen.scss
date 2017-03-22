@@ -8,11 +8,21 @@
   .attribution {
     padding-right: 64px;
     padding-left: 64px;
+    margin-top: 32px;
+    text-align: center;
   }
-  
+
   .bi-fold {
     align-items: center;
     display: flex;
     justify-content: space-around;
+
+    .left {
+      text-align: center;
+    }
+
+    .right {
+      text-align: center;
+    }
   }
 }

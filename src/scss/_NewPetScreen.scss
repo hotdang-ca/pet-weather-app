@@ -16,6 +16,11 @@
 
   .input-group {
     line-height: 28px;
+    padding: 8px;
+  }
+
+  .error {
+    border: 3px solid #ff0000;
   }
 
   form {
@@ -38,5 +43,24 @@
   label {
     margin-right: 12px;
     font-weight: 600;
+  }
+
+  .geosuggest {
+    display: inline;
+  }
+
+  .geosuggest__suggests--hidden {
+    max-height: 0;
+    overflow: hidden;
+    border-width: 0;
+  }
+
+  .geosuggest__suggests-wrapper {
+    padding: 6px;
+  }
+
+  .geosuggest__item--active {
+    background: #267dc0;
+    color: #fff;
   }
 }

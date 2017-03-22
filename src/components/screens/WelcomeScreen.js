@@ -97,13 +97,17 @@ class WelcomeScreen extends Component {
           </div>
         </div>
 
-        <PrimaryButton
-          title='Track a New Pet'
-          additionalStyles={{
-            marginTop: '64px'
-          }}
-          onClick={this.handleTrackNewPetClicked}
-        />
+        <div className='button-container'>
+          <PrimaryButton
+            title='Track a New Pet'
+            additionalStyles={{
+              marginTop: '64px',
+              width: '80%'
+            }}
+            onClick={this.handleTrackNewPetClicked}
+          />
+        </div>
+
         <Footer />
       </div>
     );

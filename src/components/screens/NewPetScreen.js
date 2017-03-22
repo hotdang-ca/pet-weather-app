@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Helmet from 'react-helmet';
+import Geosuggest from 'react-geosuggest';
 
 import { PrimaryButton, Footer } from '../common';
+
+const { showSnackbar } = require('../../utils/Utils');
+
 const APIBASE = '//pet-shelter-api-jperih.herokuapp.com';
 
 class NewPetScreen extends Component {
@@ -12,14 +16,17 @@ class NewPetScreen extends Component {
     this.state = {
       pet: {
         name: undefined,
-        type: undefined,
-        breed: undefined,
+        type: 1, // initial values
+        breed: 1, // initial values
         latitude: undefined,
         longitude: undefined
       },
       breeds: [],
       types: [],
-      selectedType: 1
+      selectedType: 1,
+      errorText: undefined,
+      nameError: false,
+      locationError: false
     };
 
     this.refreshBreeds = this.refreshBreeds.bind(this);
@@ -27,12 +34,33 @@ class NewPetScreen extends Component {
 
     this.refreshTypes = this.refreshTypes.bind(this);
     this.renderTypes = this.renderTypes.bind(this);
+
+    this.handleSuggestSelect = this.handleSuggestSelect.bind(this);
   }
 
   componentDidMount() {
     scroll(0,0);
+
     this.refreshTypes();
     this.refreshBreeds();
+  }
+
+  handleSuggestSelect(suggest) {
+    this.refs.geoSuggest.hideSuggests();
+
+    this.refs.latitude.value = suggest.location.lat;
+    this.refs.longitude.value = suggest.location.lng;
+
+    this.setState({
+      pet: {
+        ...this.state.pet,
+        latitude: suggest.location.lat,
+        longitude: suggest.location.lng,
+        location: suggest.label
+      }
+    });
+
+    // and then blur the geosuggest
   }
 
   onFieldChanged(e) {
@@ -47,13 +75,23 @@ class NewPetScreen extends Component {
         break;
 
       case 'type':
+        const newType = e.target.value;
+
+        const filteredBreeds = this.state.breeds.filter((breed) => {
+          return breed.type_id === parseInt(newType, 10);
+        });
+
         this.setState({
           pet: {
             ...this.state.pet,
-            type: e.target.value
+            type: e.target.value,
+            breed: (filteredBreeds[0] ? filteredBreeds[0].id : 0)
           },
           selectedType: e.target.value
         });
+
+        // and, see if we can select the first breed
+        this.refs.breed.selectedIndex = 0;
 
         break;
 
@@ -126,7 +164,7 @@ class NewPetScreen extends Component {
     let filteredBreeds = breeds.filter((breed) => {
       return breed.type_id === parseInt(currentType, 10);
     });
-    
+
     return filteredBreeds.map((breed, index) => {
       return (
         <option
@@ -152,13 +190,71 @@ class NewPetScreen extends Component {
     });
   }
 
+  submitForm(event) {
+    event.preventDefault();
+
+    const { pet } = this.state;
+    // TODO: replace with a fancy map function
+    console.log(pet);
+    if (
+          pet.name !== undefined
+      &&  pet.type !== undefined
+      &&  pet.breed !== undefined
+      &&  pet.location !== undefined
+      &&  pet.latitude !== undefined
+      &&  pet.longitude !== undefined) {
+        axios.post(`${APIBASE}/pets`, {
+          name: pet.name,
+          type_id: pet.type,
+          breed_id: pet.breed,
+          location: pet.location,
+          latitude: pet.latitude,
+          longitude: pet.longitude
+        })
+        .then((response) => {
+          if (response.data) {
+            if (response.data.name === pet.name) {
+              // we got our info back!
+              showSnackbar(`Great! Now you can track ${response.data.name}!`);
+              // TODO: where should we go..? let's go to the index for now
+              this.context.router.history.push(`/`);
+            }
+          }
+        })
+        .catch((error) => {
+          console.log('error submitting form', error);
+          if (error.response.data.code === 409) {
+            console.log('Server said ', error.response.data.error);
+            showSnackbar('That name already exists amongst that type. Change either field, and try again.');
+          } else {
+            showSnackbar('There\'s a temporary error sending the form. Probably Heroku is having a hiccup again. Try again in a bit.');
+          }
+        });
+    } else {
+      // some errors are field
+      const errorText = 'There are errors to correct (highlighted in red)';
+      showSnackbar(errorText);
+
+      this.setState({
+        errorText,
+        nameError: pet.name === undefined,
+        locationError: pet.location === undefined
+      });
+    }
+  }
+
   render() {
+    const { nameError, locationError } = this.state;
+
+    const generatedNameInputClassName = nameError ? 'error' : '';
+    const generatedLocationInputClassName = locationError ? 'error' : '';
+
     return (
       <div id='NewPetScreen'>
         <h2>Add your pet</h2>
 
         <div className='container'>
-
+          <h3>{ this.state.errorText }</h3>
           <form>
             <div className='input-group'>
               <label htmlFor='name'>
@@ -166,6 +262,7 @@ class NewPetScreen extends Component {
               </label>
 
               <input
+                className={`${generatedNameInputClassName}`}
                 ref="name"
                 onChange={this.onFieldChanged.bind(this)}
                 name='name'
@@ -202,17 +299,37 @@ class NewPetScreen extends Component {
             </div>
 
             <div className='input-group'>
+
               <label htmlFor='location'>
                  Location
               </label>
 
-              <input
-                ref="location"
-                onChange={this.onFieldChanged.bind(this)}
-                name='location'
-                id='location'
-                type='text'
-                placeholder='Location'
+              <Geosuggest
+                ref='geoSuggest'
+                id='locationSuggestion'
+                className='geosuggest-wrapper'
+                inputClassName={`geosuggest-input ${generatedLocationInputClassName}`}
+                placeholder="Location"
+                autoActivateFirstSuggest
+                queryDelay={250}
+                ignoreBlur={false}
+                onSuggestSelect={this.handleSuggestSelect.bind(this)}
+                style={{
+                  input: {
+                  },
+                  suggests: {
+                    backgroundColor: '#fff',
+                    marginTop: '-10px'
+                  },
+                  suggestItem: {
+                    paddingTop: '6px',
+                    paddingBottom: '6px',
+                    paddingLeft: '6px',
+                    paddingRight: '6px',
+                    color: '#000',
+                    listStyle: 'none'
+                  }
+                }}
               />
             </div>
 
@@ -227,6 +344,7 @@ class NewPetScreen extends Component {
                 name='latitude'
                 id='latitude'
                 type='number'
+                disabled
                 placeholder='Latitude'
               />
             </div>
@@ -242,6 +360,7 @@ class NewPetScreen extends Component {
                 name='longitude'
                 id='longitude'
                 type='number'
+                disabled
                 placeholder='Longitude'
               />
             </div>
@@ -250,13 +369,18 @@ class NewPetScreen extends Component {
             <PrimaryButton
               additionalStyles={{ marginTop: '0px', marginLeft: '0px', marginRight: '0px' }}
               title='Add my pet!'
+              onClick={this.submitForm.bind(this)}
             />
           </div>
-
+          <Footer />
         </div>
       </div>
     );
   }
+};
+
+NewPetScreen.contextTypes = {
+    router: React.PropTypes.object
 };
 
 export { NewPetScreen };
