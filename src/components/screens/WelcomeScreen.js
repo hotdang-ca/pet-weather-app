@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Helmet from 'react-helmet';
 
-import { PrimaryButton, PetDetailsCard } from '../common';
+import { PrimaryButton, PetDetailsCard, Footer } from '../common';
+
 const APIBASE = '//pet-shelter-api-jperih.herokuapp.com';
 
 class WelcomeScreen extends Component {
@@ -26,11 +27,10 @@ class WelcomeScreen extends Component {
 
   handleTrackNewPetClicked(event) {
     event.preventDefault();
-    console.log("new pet");
+    this.context.router.history.push(`/pets/new`);
   }
 
   handlePetClicked(id, component) {
-    console.log('details for pet', id);
     this.context.router.history.push(`/pets/${id}`);
   }
 
@@ -76,7 +76,8 @@ class WelcomeScreen extends Component {
         />
 
         <div className='container'>
-          <h2>Does my pet need an umbrella?</h2>
+          <h1>Does my pet need an umbrella?</h1>
+          <h2>Select a pet to find out</h2>
           <div className='pets-list'>
 
             <div className='pets-list-header'>
@@ -96,13 +97,18 @@ class WelcomeScreen extends Component {
           </div>
         </div>
 
-        <PrimaryButton
-          title='Track a New Pet'
-          additionalStyles={{
-            marginTop: '64px'
-          }}
-          onClick={this.handleTrackNewPetClicked}
-        />
+        <div className='button-container'>
+          <PrimaryButton
+            title='Track a New Pet'
+            additionalStyles={{
+              marginTop: '64px',
+              width: '80%'
+            }}
+            onClick={this.handleTrackNewPetClicked}
+          />
+        </div>
+
+        <Footer />
       </div>
     );
   }

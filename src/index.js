@@ -1,17 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { Switch, BrowserRouter, Route } from 'react-router-dom';
 
 import AppWrapper from './AppWrapper';
-import { WelcomeScreen, PetDetailsScreen } from './components/screens';
+import { WelcomeScreen, PetDetailsScreen, NewPetScreen } from './components/screens';
 
 import './main.css';
 
 const Routes = () => (
   <BrowserRouter>
     <AppWrapper title={'Pet Weather'}>
-      <Route exact path="/" component={WelcomeScreen}/>
-      <Route exact path="/pets/:petId" component={PetDetailsScreen} />
+      <Switch>
+        <Route exact path="/" component={WelcomeScreen}/>
+        <Route exact path="/pets/new" component={NewPetScreen} />
+        <Route exact path="/pets/:petId" component={PetDetailsScreen} />        
+      </Switch>
     </AppWrapper>
   </BrowserRouter>
 );

@@ -1,22 +1,24 @@
 .primary-button {
   background-color: $color-white;
+  border-radius: 6px;
+  border-width: 0px;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.24), 0 0 4px 0 rgba(0, 0, 0, 0.12);
   color: $color-primaryRust;
   font-size: 1.2em;
   font-weight: 900;
-  min-width: 120px;
   height: 64px;
-  padding: 18px;
-
-  width: 80%;
   margin-left: 16px;
   margin-right: 16px;
-
-  border-radius: 6px;
-  border-width: 0px;
-
-  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.24), 0 0 4px 0 rgba(0, 0, 0, 0.12);
+  min-width: 120px;
+  opacity: 1.0;
+  padding: 18px;
+  width: 80%;
 
   &:disabled {
     opacity: 0.4 !important;
+  }
+
+  &:hover {
+    background-color: rgba(225,225,225,1.0);
   }
 }
