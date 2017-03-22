@@ -78,7 +78,7 @@ class PetDetailsScreen extends Component {
 
       return(
         <div>
-          <h2 style={{ fontSize: '86px' }}>YES!</h2><p>It looks like { pet.name } is going to need one in { pet.location }.</p>
+          <h2 style={{ fontSize: '86px' }}>YES!</h2><p>It looks like { pet.name } is going to need one in { pet.location }.</p><p>May we suggest <a href="https://www.amazon.ca/Umbrella-Keeps-your-Comfortable-Rain/dp/B00JL95GJG" target="_blank">this</a>?</p>
         </div>
       );
     } else {

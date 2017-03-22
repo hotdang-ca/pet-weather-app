@@ -3,6 +3,7 @@ import axios from 'axios';
 import Helmet from 'react-helmet';
 
 import { PrimaryButton, PetDetailsCard, Footer } from '../common';
+const { showSnackbar } = require('../../utils/Utils');
 
 const APIBASE = '//pet-shelter-api-jperih.herokuapp.com';
 
@@ -48,6 +49,7 @@ class WelcomeScreen extends Component {
     })
     .catch((error) => {
       console.log('error', error);
+      showSnackbar('Oh, darn! Heroku has hung again... try refreshing!');
     });
   }
 
