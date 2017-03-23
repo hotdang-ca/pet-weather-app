@@ -27,7 +27,7 @@ class PetDetailsScreen extends Component {
   }
 
   componentDidMount() {
-    scroll(0,0);
+    scroll(0,0); // #6
     this.refreshPetDetails((pet) => { this.refreshForecast(pet) });
   }
 
@@ -73,6 +73,7 @@ class PetDetailsScreen extends Component {
 
     console.log(precipType, precipProbability);
 
+    // #7
     if (precipProbability > 0 && precipType === 'rain') { // if there's a chance of rain, you need an umbrella
     console.log('chance of rain!');
 
@@ -95,6 +96,7 @@ class PetDetailsScreen extends Component {
 
     let iconString = '';
     if (type !== undefined) {
+      // #8
       switch (type.toLowerCase()) {
         case 'dog':
           iconString = '🐶';
@@ -113,6 +115,7 @@ class PetDetailsScreen extends Component {
       }
     }
 
+    // #9
     let staticImageUrl = 'https://maps.googleapis.com/maps/api/staticmap?autoscale=2&size=300x300&maptype=roadmap&key=AIzaSyCZbrMDPUDaeqtXCb1CHrbzrot9zxKyXH8&format=png&visual_refresh=true&zoom=14';
     staticImageUrl += `&markers=size:mid%7Ccolor:0xff0000%7Clabel:%7C${latitude},${longitude}`;
 

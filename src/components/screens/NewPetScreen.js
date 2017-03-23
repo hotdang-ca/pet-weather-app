@@ -77,6 +77,7 @@ class NewPetScreen extends Component {
       case 'type':
         const newType = e.target.value;
 
+        // #10
         const filteredBreeds = this.state.breeds.filter((breed) => {
           return breed.type_id === parseInt(newType, 10);
         });
@@ -91,6 +92,7 @@ class NewPetScreen extends Component {
         });
 
         // and, see if we can select the first breed
+        // #11
         this.refs.breed.selectedIndex = 0;
 
         break;
@@ -104,6 +106,7 @@ class NewPetScreen extends Component {
         });
         break;
 
+      // #12
       case 'location':
         this.setState({
           pet: {
@@ -112,6 +115,7 @@ class NewPetScreen extends Component {
           }
         });
         break;
+
       case 'latitude':
         this.setState({
           pet: {
@@ -135,6 +139,7 @@ class NewPetScreen extends Component {
   }
 
   refreshBreeds() {
+    // #13
     axios.get(`${APIBASE}/breeds`)
     .then((response) => {
       this.setState({
@@ -161,6 +166,7 @@ class NewPetScreen extends Component {
   renderBreeds(currentType) {
     const { breeds } = this.state;
 
+    // #14
     let filteredBreeds = breeds.filter((breed) => {
       return breed.type_id === parseInt(currentType, 10);
     });
@@ -196,6 +202,8 @@ class NewPetScreen extends Component {
     const { pet } = this.state;
     // TODO: replace with a fancy map function
     console.log(pet);
+
+    // #15
     if (
           pet.name !== undefined
       &&  pet.type !== undefined
@@ -231,6 +239,7 @@ class NewPetScreen extends Component {
           }
         });
     } else {
+      // #16
       // some errors are field
       const errorText = 'There are errors to correct (highlighted in red)';
       showSnackbar(errorText);
@@ -304,6 +313,7 @@ class NewPetScreen extends Component {
                  Location
               </label>
 
+              {/* #17 */}
               <Geosuggest
                 ref='geoSuggest'
                 id='locationSuggestion'

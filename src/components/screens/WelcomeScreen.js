@@ -49,6 +49,7 @@ class WelcomeScreen extends Component {
     })
     .catch((error) => {
       console.log('error', error);
+      // #4
       showSnackbar('Oh, darn! Heroku has hung again... try refreshing!');
     });
   }
@@ -58,6 +59,7 @@ class WelcomeScreen extends Component {
 
     return pets.map((pet, index) => {
       console.log(pet);
+      // #5
       return (
         <PetDetailsCard
           key={index}

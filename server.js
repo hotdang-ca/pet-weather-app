@@ -4,6 +4,7 @@ var request = require('request');
 
 var app = () => {
   const app = express();
+  // #2
   const indexPath = path.join(__dirname, '/build/index.html');
   const publicPath = express.static(path.join(__dirname, '/build/static'));
 
@@ -22,6 +23,7 @@ var app = () => {
   });
 
   // proxy requests because CORS
+  // #3
   app.get('/weather/:apiKey/:latitude,:longitude', (req, res) => {
     const apiServerHost = 'https://api.darksky.net/forecast';
     const url = apiServerHost + req.url.replace('weather/', '');
